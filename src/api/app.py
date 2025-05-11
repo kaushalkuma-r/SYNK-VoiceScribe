@@ -2,12 +2,13 @@ from fastapi import FastAPI, UploadFile, File, HTTPException, Form, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
-from voice_scribe_agent import VoiceScribeAgent
+from src.core.voice_scribe_agent import VoiceScribeAgent
 import os
 import tempfile
 from pathlib import Path
 import logging
 from typing import Optional
+from dotenv import load_dotenv
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -25,7 +26,7 @@ app.add_middleware(
 )
 
 # Mount static files
-app.mount("/static", StaticFiles(directory="frontend"), name="static")
+app.mount("/static", StaticFiles(directory="src/static/frontend"), name="static")
 
 # Initialize the agent
 agent = VoiceScribeAgent(
@@ -35,7 +36,7 @@ agent = VoiceScribeAgent(
 
 @app.get("/")
 async def read_root():
-    return FileResponse("frontend/index.html")
+    return FileResponse("src/static/frontend/index.html")
 
 @app.post("/transcribe")
 async def transcribe_audio(request: Request, file: UploadFile = File(...)):
