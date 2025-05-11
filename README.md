@@ -1,6 +1,6 @@
-# SYNK-VoiceScribe
+# SYNK Voice Scribe
 
-SYNK-VoiceScribe is a powerful voice-to-text transcription application that converts spoken words into written text in real-time. This application features a modern web interface for easy audio file upload and transcription processing.
+A powerful voice-to-text transcription application that converts spoken words into written text in real-time, featuring AI-powered text sanitization.
 
 ## Features
 
@@ -13,9 +13,24 @@ SYNK-VoiceScribe is a powerful voice-to-text transcription application that conv
 - Processing time tracking
 - Error handling and logging
 
+## Project Structure
+
+```
+SYNK-Voice-Scribe/
+├── src/
+│   ├── api/            # FastAPI application and routes
+│   ├── core/           # Core business logic
+│   ├── utils/          # Utility functions
+│   └── static/         # Static files
+│       └── frontend/   # Frontend assets
+├── tests/              # Test files
+├── docs/              # Documentation
+├── requirements.txt    # Python dependencies
+└── README.md          # Project documentation
+```
+
 ## Prerequisites
 
-Before you begin, ensure you have the following installed:
 - Python 3.8 or higher
 - pip (Python package installer)
 - A working microphone
@@ -30,12 +45,18 @@ git clone https://github.com/kaushalkuma-r/SYNK-VoiceScribe.git
 cd SYNK-VoiceScribe
 ```
 
-2. Install the required dependencies:
+2. Create and activate a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+3. Install the required dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Set up your environment variables:
+4. Set up your environment variables:
    - Create a `.env` file in the root directory
    - Add your Google API key:
    ```
@@ -45,35 +66,12 @@ pip install -r requirements.txt
 
 ## Running the Application
 
-### Backend (FastAPI)
-
 1. Start the FastAPI server:
 ```bash
-uvicorn app:app --reload
-```
-The API will be available at `http://localhost:8000`
-
-### Frontend
-
-1. Navigate to the frontend directory:
-```bash
-cd frontend
+uvicorn src.api.app:app --reload --host 0.0.0.0 --port 8000
 ```
 
-2. Start a local server (using Python's built-in server):
-```bash
-python -m http.server 3000
-```
-
-3. Open your browser and go to `http://localhost:3000`
-
-## Usage
-
-1. Open the web interface in your browser
-2. Click the upload area or drag and drop an audio file
-3. Click "Transcribe" to process the audio
-4. View the raw transcription and sanitized text
-5. The processing time will be displayed at the bottom
+2. Open your browser and go to `http://localhost:8000`
 
 ## API Endpoints
 
@@ -87,16 +85,28 @@ python -m http.server 3000
 ## Development
 
 ### Backend Structure
-- `app.py`: FastAPI application and endpoints
-- `voice_scribe_agent.py`: Core transcription and sanitization logic
+- `src/api/app.py`: FastAPI application and endpoints
+- `src/core/voice_scribe_agent.py`: Core transcription and sanitization logic
+- `src/utils/`: Utility functions and helpers
 
 ### Frontend Structure
-- `frontend/index.html`: Main HTML file
-- `frontend/app.js`: React application code
+- `src/static/frontend/index.html`: Main HTML file with embedded JavaScript
+- `src/static/frontend/styles.css`: Custom styles (if needed)
+
+## Testing
+
+Run the test suite:
+```bash
+pytest tests/
+```
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 

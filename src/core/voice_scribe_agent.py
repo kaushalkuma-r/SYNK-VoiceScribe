@@ -99,10 +99,7 @@ class VoiceScribeAgent:
                 # Transcribe using faster-whisper
                 segments, info = self.whisper_model.transcribe(
                     audio_file_path,
-                    beam_size=5,
-                    language="en",  # Can be made configurable
-                    vad_filter=True,
-                    vad_parameters=dict(min_silence_duration_ms=500)
+                    beam_size=5
                 )
                 
                 # Combine all segments
