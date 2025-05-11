@@ -1,15 +1,17 @@
 # SYNK-VoiceScribe
 
-SYNK-VoiceScribe is a powerful voice-to-text transcription application that converts spoken words into written text in real-time. This application is designed to help users quickly transcribe their speech into text format, making it ideal for note-taking, documentation, and content creation.
+SYNK-VoiceScribe is a powerful voice-to-text transcription application that converts spoken words into written text in real-time. This application features a modern web interface for easy audio file upload and transcription processing.
 
 ## Features
 
-- Real-time voice-to-text transcription
-- Support for multiple languages
+- Real-time voice-to-text transcription using Whisper
+- AI-powered text sanitization using Gemini
+- Modern, responsive web interface
+- Support for multiple audio formats
 - High accuracy speech recognition
-- Easy-to-use interface
-- Export functionality for transcribed text
 - Cross-platform compatibility
+- Processing time tracking
+- Error handling and logging
 
 ## Prerequisites
 
@@ -17,6 +19,8 @@ Before you begin, ensure you have the following installed:
 - Python 3.8 or higher
 - pip (Python package installer)
 - A working microphone
+- Google API key for Gemini
+- Node.js and npm (for frontend development)
 
 ## Installation
 
@@ -31,18 +35,64 @@ cd SYNK-VoiceScribe
 pip install -r requirements.txt
 ```
 
-## Usage
+3. Set up your environment variables:
+   - Create a `.env` file in the root directory
+   - Add your Google API key:
+   ```
+   GOOGLE_API_KEY=your_api_key_here
+   USE_GPU=true  # Set to false if you don't have a GPU
+   ```
 
-1. Run the application:
+## Running the Application
+
+### Backend (FastAPI)
+
+1. Start the FastAPI server:
 ```bash
-python main.py
+uvicorn app:app --reload
+```
+The API will be available at `http://localhost:8000`
+
+### Frontend
+
+1. Navigate to the frontend directory:
+```bash
+cd frontend
 ```
 
-2. Click the "Start Recording" button to begin voice transcription
-3. Speak clearly into your microphone
-4. Click "Stop Recording" when finished
-5. The transcribed text will appear in the text area
-6. Use the "Export" button to save the transcription
+2. Start a local server (using Python's built-in server):
+```bash
+python -m http.server 3000
+```
+
+3. Open your browser and go to `http://localhost:3000`
+
+## Usage
+
+1. Open the web interface in your browser
+2. Click the upload area or drag and drop an audio file
+3. Click "Transcribe" to process the audio
+4. View the raw transcription and sanitized text
+5. The processing time will be displayed at the bottom
+
+## API Endpoints
+
+- `POST /transcribe`: Upload and process an audio file
+  - Accepts: audio file (multipart/form-data)
+  - Returns: JSON with raw transcription, sanitized text, and processing time
+
+- `GET /health`: Health check endpoint
+  - Returns: API status
+
+## Development
+
+### Backend Structure
+- `app.py`: FastAPI application and endpoints
+- `voice_scribe_agent.py`: Core transcription and sanitization logic
+
+### Frontend Structure
+- `frontend/index.html`: Main HTML file
+- `frontend/app.js`: React application code
 
 ## Contributing
 
