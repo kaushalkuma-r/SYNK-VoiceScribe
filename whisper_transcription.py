@@ -19,8 +19,8 @@ def transcribe_audio(audio_path: str) -> str:
     # Initialize the model
     model = initialize_whisper_model()
     
-    # Run the transcription
-    segments, info = model.transcribe(audio_path, beam_size=5)
+    # Run the transcription with forced Hindi language
+    segments, info = model.transcribe(audio_path, beam_size=5, language="hi")
     
     # Collect all segments into a single transcript
     transcript = ""
@@ -33,4 +33,4 @@ if __name__ == "__main__":
     # Example usage when run directly
     audio_file = "test.mp3"
     transcription = transcribe_audio(audio_file)
-    print("Transcription:", transcription)
+    print("Transcription:w", transcription)
