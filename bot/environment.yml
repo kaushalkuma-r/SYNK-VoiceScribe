@@ -1,0 +1,9 @@
+name: voiceai
+channels:
+  - defaults
+dependencies:
+  - python=3.11
+  - gcc_linux-64
+  - gxx_linux-64
+  - pyaudio
+prefix: /root/miniconda3/envs/voiceai
